@@ -45,6 +45,14 @@
 </dependency>
 
 <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <!--  slf4j couche haute , log4j couche basse (avec log4j.properties) -->
+    <version>1.7.25</version>
+</dependency>
+
+
+<dependency>
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>    <version>5.2.10.Final</version>
 </dependency>
