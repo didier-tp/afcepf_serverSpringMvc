@@ -38,25 +38,35 @@ public class WsRestDeviseIT {
 	    logger.info("java devise EURvia rest: "  +dev.toString());
 	    Assert.assertTrue(dev.getCodeDevise().equals("EUR"));
 	}
-	/*
+	
 	@Test
-	public  void testRestSettingAuth()
+	public  void testRestPostAndDelete()
 	{
-	    final String uri = "http://localhost:8080/serverSpringMvc/ws/rest/clients/settingAuth";
-	    ClientAuth newClientAuth = new ClientAuth();
-	    newClientAuth.setNumClient(1L);
-	    newClientAuth.setPassword("nouveau-pwd1");
-	    newClientAuth.setOk(null);
+	    final String uri = "http://localhost:8080/serverSpringMvc/ws/rest/devise";
+	    //ajout:
+	    Devise newDevise = new Devise();
+	    newDevise.setCodeDevise("MS9");
+	    newDevise.setTauxChange(1.123456);
 	   
-	    //ClientAuth savedClientAuth = restTemplate.postForObject(uri, newClientAuth, ClientAuth.class);
-	    //logger.info("savedClientAuth via rest: " + savedClientAuth.toString());
-	    //Assert.assertTrue(savedClientAuth.getOk());
+	    Devise savedDev = restTemplate.postForObject(uri, newDevise, Devise.class);
+	    logger.info("savedDev via rest: " + savedDev.toString());
+	    Assert.assertTrue(savedDev.getCodeDevise().equals("MS9"));
 	   
-	    String savedClientAuthAsJsonString = restTemplate.postForObject(uri, newClientAuth, String.class);
-	    logger.info("savedClientAuth via rest (as Json String): " + savedClientAuthAsJsonString);
+	   //verification:
+	   String resultAsJsonString = restTemplate.getForObject(uri, String.class);
+	   logger.info("json devise list via rest (after add MS9): " + resultAsJsonString);
+	   Assert.assertTrue(resultAsJsonString.indexOf("MS9")>0);
+	    
+	   //Suppression:
+	   restTemplate.delete(uri+"/MS9");
+	   
+	   //verification:
+	   String resultAsJsonString2 = restTemplate.getForObject(uri, String.class);
+	   logger.info("json devise list via rest (after delete MS9): " + resultAsJsonString2);
+	   Assert.assertTrue(resultAsJsonString2.indexOf("MS9")==-1);
 
 	}
-*/
+
 	
 	
 	
