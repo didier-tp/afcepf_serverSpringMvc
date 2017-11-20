@@ -14,24 +14,17 @@ import fr.afcepf.dja.rest.auth.data.Credential;
 @RequestMapping(value="/rest/auth" ,headers="Accept=application/json" )
 public class WsAuth {
 	
-	private String generateToken(){
-		String token=null;
-		token = java.util.UUID.randomUUID().toString();
-		return token;
-	}
-	
 	//url = http://localhost:8080/serverSpringMvc/ws/rest/auth/verifAuth
 	//avec { "username" : "toto" , "password": "pwd_toto" }
-	//à tester avec POSTMAN (POST , raw , et "Content-Type application/json dans header)
+	//à tester avec POSTMAN (POST , raw , et Content-Type application/json dans header)
 	@RequestMapping(value="/verifAuth" ,method=RequestMethod.POST )
 	public ResponseEntity<AuthResponse> postAuth(@RequestBody Credential credential){
-		
 		//code à peaufiner pour rendre plus fiable (exception)
 		AuthResponse authResponse = new AuthResponse();
 		if(credential.getPassword().equals("pwd_" + credential.getUsername())){
 			authResponse.setAuthOk(true);
 			authResponse.setMessage("authentification reussie");
-			authResponse.setAuthToken(generateToken());
+			authResponse.setAuthToken(AuthUtil.generateToken());
 		}
 		else{
 			authResponse.setAuthOk(false);
