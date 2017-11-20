@@ -1,7 +1,7 @@
 cd /d "%~dp0"
 git add *
 git commit -a -m "nouvelle version"
-git push -u gitHubOriginAfcepfServerSpringMvc master
+git push -u gitHubOriginAfcepfServerSpringMvc2 master
 pause
 
 REM open with text editor
