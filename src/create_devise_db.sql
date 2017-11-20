@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS devise;
+
+GRANT ALL PRIVILEGES
+    ON devise.*
+	TO user@'%'
+            IDENTIFIED BY 'user';
+
+FLUSH PRIVILEGES;
