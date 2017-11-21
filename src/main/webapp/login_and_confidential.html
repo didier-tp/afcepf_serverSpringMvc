@@ -1,0 +1,108 @@
+   <html >
+    <head>
+	<script src="jquery-3.2.1.js"></script>
+    <script>
+	  var deviseList;
+	  var deviseIdSelected;//id=.codeDevise
+	  var deviseSelected;
+	  
+	  var credential;
+	  var authToken; //token d'authentification (en mode bearer) à retransmettre
+	
+	  function local_update_credential(){	
+		  credential = { 
+		     "username" : null,
+		     "password" : null
+		  }; //valeur initiale (par defaut)
+		  credential.username= $('#txtUsername').val();
+		  credential.password= $('#txtPassword').val();
+	  }
+	  
+	  function display_selected_devise(){
+	             $("#spanMsg").html( "selected devise:" + deviseIdSelected) ;
+				 $('#spanCode').html(deviseSelected.codeDevise);
+				
+				 $('#txtExchangeRate').val(deviseSelected.tauxChange);
+	  }
+	
+	  function local_update_selected_devise(){	             
+			
+				deviseSelected.tauxChange= $('#txtExchangeRate').val();
+	  }
+	  
+      $(function() {
+	 	  
+	    $.ajax({
+           type: "GET",
+           url: "ws/rest/devise",
+		   success: function (data,status,xhr) {
+               if (data) {
+			       //alert(JSON.stringify(data));
+			       deviseList = data;
+				   for(deviseIndex in deviseList){
+				       var devise=deviseList[deviseIndex];
+					   if(deviseIndex==0)
+					      { deviseSelected = devise; deviseIdSelected = devise.codeDevise; }
+				       //alert(JSON.stringify(devise));
+				       $('#selDevise').append('<option  value="'+ devise.codeDevise +'">'
+				    		               + devise.codeDevise + '</option>');					   
+				   }
+				   display_selected_devise();
+               } else {
+                   $("#spanMsg").html("Cannot GET devises !");
+               }
+           }
+		   });
+        
+		
+	    
+		$('#btnUpdate').on('click',function(){
+		 local_update_selected_devise();
+		 
+		//$("#spanMsg").html( "message in the bottle" + JSON.stringify(deviseSelected) ) ;
+		 $.ajax({
+           type: "POST",
+           url: "ws/rest/devise",
+           contentType : "application/json" ,
+           dataType: "json",
+		   data: JSON.stringify(deviseSelected),
+           success: function (updatedData) {
+               if (updatedData) {
+                  $("#spanMsg").html("updated data (server side):" + JSON.stringify(updatedData));
+               } else {
+                   $("#spanMsg").html("Cannot PUT updated data");
+               }
+           },
+           error: function(xhr, status, error){
+        	   $("#spanMsg").html( "status:" + status + " error : " + error ) ;
+           }
+		   });
+		});
+	
+		
+		$('#selDevise').on('change',function(evt){
+		         deviseIdSelected = $(evt.target).val();
+				 for(deviseIndex in deviseList){
+				       var devise=deviseList[deviseIndex];
+					   if(devise.codeDevise == deviseIdSelected)
+					       deviseSelected  = devise;
+				 }
+				 display_selected_devise();
+		});
+      }); 
+   </script>
+   </head>
+     <body>
+	
+	   <h2> test WS securisé (avec token)</h2>
+	  <hr/>
+	  username : <input id="txtUsername" type='text' /><br/>
+	  password : <input id="txtPassword" type='text' /><br/>
+	  <input type='button' value="authentification" id="btnAuth"/> <br/>
+	  <span id="spanMsg"></span> <br/>
+	  <hr/>
+	  <button onclick="load_conf_new()"> confidential news </button>
+	  <hr/>
+	  <a href="index.html">retour vers index.html</a>
+	  </body>
+     </html>
