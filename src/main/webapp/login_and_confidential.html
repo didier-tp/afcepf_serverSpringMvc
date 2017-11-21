@@ -16,6 +16,10 @@
 	  
 	  function load_conf_new(){
 		  $(document).ajaxSend(function(e, xhr, options) {
+			  //retransmission du jeton d'authentification
+			  //dans l'entête http de la requete ajax
+			  //xhr = XmlHttpRequest = objet technique du navigateur
+			  //qui déclenche les requêtes ajax
   	          xhr.setRequestHeader('Authorization',"Bearer "+ authToken);
   	       });
 		  $.ajax({
