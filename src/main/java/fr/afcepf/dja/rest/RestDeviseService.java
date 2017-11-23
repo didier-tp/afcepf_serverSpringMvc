@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.afcepf.dja.dao.IDeviseDao;
 import fr.afcepf.dja.data.Devise;
 import fr.afcepf.dja.ws.IServiceDevise;
+import io.swagger.annotations.Api;
 
 
 
 @RestController // composant Spring de type "ControllerRest" (plus précis que @Component)
 @RequestMapping(value="rest/devise" , headers="Accept=application/json")
+@Api("WS REST pour la gestion des devises (taux de change)")
 //cette classe est une sorte de "adaptateur REST"
 public class RestDeviseService {
 	

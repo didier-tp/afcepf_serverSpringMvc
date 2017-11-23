@@ -14,9 +14,11 @@
 	<context:annotation-config />
 	<context:component-scan base-package="fr.afcepf.dja" /> 
     <mvc:annotation-driven />
-    <!-- 
+    
     <mvc:interceptors>
   		<bean class="fr.afcepf.dja.rest.MyMvcInterceptor" />
 	</mvc:interceptors> 
-	-->	
+	
+    <bean class="fr.afcepf.dja.swagger.config.MySwaggerConfig" />
+	
 </beans>
