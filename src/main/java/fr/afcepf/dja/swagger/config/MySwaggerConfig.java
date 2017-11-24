@@ -24,8 +24,8 @@ public class MySwaggerConfig {
 	          .select()                                  
 	          .apis(RequestHandlerSelectors.any()) 
 	           //.apis(RequestHandlerSelectors.basePackage("fr.afcepf.dja.rest"))
-	          //.paths(PathSelectors.any())       
-	          .paths(PathSelectors.ant("/rest/*"))
+	          .paths(PathSelectors.any())       
+	          //.paths(PathSelectors.ant("/rest/*"))
 	          .build() 
 	          .apiInfo(apiInfo());
 	    }

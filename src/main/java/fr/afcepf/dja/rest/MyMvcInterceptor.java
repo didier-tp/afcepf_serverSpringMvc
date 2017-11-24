@@ -60,6 +60,8 @@ private static Logger logger = LoggerFactory.getLogger(MyMvcInterceptor.class);
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		//System.out.println("MyMvcAuthInterceptor.preHandle() : ...");
+		if(!(handler instanceof HandlerMethod))
+			return true;
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		AuthTokenRequired tokenRequiredAnnot = handlerMethod.getMethodAnnotation(AuthTokenRequired.class);
 		if(tokenRequiredAnnot==null){

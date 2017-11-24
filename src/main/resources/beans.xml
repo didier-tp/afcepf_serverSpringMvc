@@ -19,6 +19,9 @@
   		<bean class="fr.afcepf.dja.rest.MyMvcInterceptor" />
 	</mvc:interceptors> 
 	
+	
     <bean class="fr.afcepf.dja.swagger.config.MySwaggerConfig" />
+    
+  
 	
 </beans>
